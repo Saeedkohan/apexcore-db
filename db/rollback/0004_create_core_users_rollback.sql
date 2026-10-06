@@ -1,1 +1,5 @@
-DROP TABLE IF EXISTS core.users;
+BEGIN;
+
+DROP TABLE IF EXISTS core.users CASCADE;
+
+COMMIT;
