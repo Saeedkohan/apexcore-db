@@ -19,3 +19,5 @@ CREATE TABLE IF NOT EXISTS core.users
 CREATE INDEX IF NOT EXISTS ix_users_id_active ON core.users (is_active) WHERE is_active = true;
 
 COMMIT;
+
+
