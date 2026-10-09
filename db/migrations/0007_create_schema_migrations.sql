@@ -6,7 +6,6 @@ CREATE TABLE IF NOT EXISTS core.schema_migrations (
     applied_at  TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- پر کردن جدول با تاریخچه فایل‌هایی که تا الان اجرا کردی
 INSERT INTO core.schema_migrations (version, name) VALUES
     ('0001', 'init'),
     ('0002', 'create_schemas'),
