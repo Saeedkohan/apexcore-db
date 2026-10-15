@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS inventory.receive_stock(UUID, UUID, INTEGER, UUID, TEXT, UUID);
