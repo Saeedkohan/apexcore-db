@@ -66,3 +66,4 @@ test-output/
 # Temporary SQL scratch files
 # ==============================
 scratch.sql
+.gitignore
