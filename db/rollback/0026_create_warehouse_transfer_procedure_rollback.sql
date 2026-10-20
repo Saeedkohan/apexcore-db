@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS inventory.transfer_stock(uuid, uuid, uuid, integer, uuid, text);
