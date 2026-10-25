@@ -179,24 +179,24 @@ class warehouses {
    uuid updated_by
    uuid id
 }
-categories  -->  categories : parent_category_id:id
-order_items  -->  orders : order_id:id
-order_items  -->  products : product_id:id
-orders  -->  users : customer_id:id
-price_history  -->  products : product_id:id
-price_history  -->  users : created_by:id
-products  -->  categories : category_id:id
-products  -->  users : created_by:id
-products  -->  users : updated_by:id
-stock_levels  -->  products : product_id:id
-stock_levels  -->  users : updated_by:id
-stock_levels  -->  warehouses : warehouse_id:id
-stock_movements  -->  products : product_id:id
-stock_movements  -->  users : created_by:id
-stock_movements  -->  warehouses : warehouse_id:id
-transactions  -->  orders : order_id:id
-warehouses  -->  users : updated_by:id
-warehouses  -->  users : created_by:id
+order_items "1" --> "*" orders : order_id
+order_items "1" --> "*" products : product_id
+orders "1" --> "*" users : customer_id
+price_history "1" --> "*" products : product_id
+price_history "1" --> "*" users : created_by
+products "1" --> "*" categories : category_id
+products "1" --> "*" users : created_by
+products "1" --> "*" users : updated_by
+stock_levels "1" --> "*" products : product_id
+stock_levels "1" --> "*" users : updated_by
+stock_levels "1" --> "*" warehouses : warehouse_id
+stock_movements "1" --> "*" products : product_id
+stock_movements "1" --> "*" users : created_by
+stock_movements "1" --> "*" warehouses : warehouse_id
+transactions "1" --> "*" orders : order_id
+warehouses "1" --> "*" users : updated_by
+warehouses "1" --> "*" users : created_by
+
 ```
 
 ## Schema overview
