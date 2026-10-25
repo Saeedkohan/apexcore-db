@@ -1,0 +1,156 @@
+classDiagram
+direction BT
+class audit_logs {
+   varchar(64) schema_name
+   varchar(64) table_name
+   varchar(128) record_id
+   varchar(10) action
+   jsonb old_data
+   jsonb new_data
+   uuid changed_by
+   timestamp with time zone created_at
+   bigint id
+}
+class categories {
+   uuid parent_category_id
+   varchar(150) name
+   text description
+   boolean is_active
+   timestamp with time zone created_at
+   timestamp with time zone updated_at
+   uuid created_by
+   uuid updated_by
+   uuid id
+}
+class order_items {
+   uuid order_id
+   uuid product_id
+   integer quantity
+   numeric(12,4) unit_price
+   numeric(12,4) total_price
+   timestamp with time zone created_at
+   uuid id
+}
+class orders {
+   varchar(32) order_number
+   uuid customer_id
+   orders.order_status status
+   numeric(12,4) total_amount
+   varchar(3) currency
+   jsonb shipping_address
+   text notes
+   timestamp with time zone created_at
+   timestamp with time zone updated_at
+   uuid id
+}
+class price_history {
+   uuid product_id
+   numeric(12,4) old_base_price
+   numeric(12,4) new_base_price
+   numeric(12,4) old_cost_price
+   numeric(12,4) new_cost_price
+   varchar(3) currency
+   text reason
+   timestamp with time zone valid_from
+   uuid created_by
+   bigint id
+}
+class products {
+   uuid category_id
+   varchar(64) sku
+   varchar(255) name
+   text description
+   numeric(12,4) base_price
+   numeric(12,4) cost_price
+   varchar(3) currency
+   jsonb attributes
+   boolean is_active
+   timestamp with time zone create_at
+   timestamp with time zone updated_at
+   uuid created_by
+   uuid updated_by
+   uuid id
+}
+class schema_migrations {
+   varchar(128) name
+   timestamp with time zone applied_at
+   varchar(4) version
+}
+class stock_levels {
+   uuid product_id
+   uuid warehouse_id
+   integer quantity
+   integer reserved_quantity
+   integer reorder_point
+   integer reorder_quantity
+   integer available_quantity
+   timestamp with time zone created_at
+   timestamp with time zone updated_at
+   uuid updated_by
+   uuid id
+}
+class stock_movements {
+   uuid product_id
+   uuid warehouse_id
+   inventory.movement_type movement_type
+   integer quantity_delta
+   integer quantity_before
+   integer quantity_after
+   varchar(64) reference_type
+   uuid reference_id
+   text notes
+   timestamp with time zone created_at
+   uuid created_by
+   bigint id
+}
+class transactions {
+   uuid order_id
+   numeric(12,2) amount
+   varchar(3) currency
+   payments.payment_method payment_method
+   payments.payment_status status
+   varchar(100) gateway_reference
+   timestamp with time zone created_at
+   timestamp with time zone updated_at
+   uuid id
+}
+class users {
+   varchar(50) username
+   varchar(255) email
+   text password_hash
+   boolean is_active
+   boolean is_admin
+   timestamp created_at
+   timestamp updated_at
+   uuid id
+}
+class warehouses {
+   varchar(32) code
+   varchar(128) name
+   text address
+   jsonb metadata
+   boolean is_active
+   timestamp with time zone created_at
+   timestamp with time zone updated_at
+   uuid created_by
+   uuid updated_by
+   uuid id
+}
+categories  -->  categories : parent_category_id:id
+order_items  -->  orders : order_id:id
+order_items  -->  products : product_id:id
+orders  -->  users : customer_id:id
+price_history  -->  products : product_id:id
+price_history  -->  users : created_by:id
+products  -->  categories : category_id:id
+products  -->  users : created_by:id
+products  -->  users : updated_by:id
+stock_levels  -->  products : product_id:id
+stock_levels  -->  users : updated_by:id
+stock_levels  -->  warehouses : warehouse_id:id
+stock_movements  -->  products : product_id:id
+stock_movements  -->  users : created_by:id
+stock_movements  -->  warehouses : warehouse_id:id
+transactions  -->  orders : order_id:id
+warehouses  -->  users : updated_by:id
+warehouses  -->  users : created_by:id
